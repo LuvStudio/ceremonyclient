@@ -8,15 +8,9 @@ start_process() {
             exit 1
         fi
         if [[ $(uname -m) == "aarch64"* ]]; then
-            ./node-$version-linux-arm64 &
-            main_process_id=$!
-            sleep 20
-            ps -eo pid,args | grep "node-$version-linux-arm64 --core" | grep -v grep | gawk '{print $1}' | xargs -L 1 cpulimit -l 50 -z -b -p
+            ./node-$version-linux-arm64
         else
-            ./node-$version-linux-amd64 &
-            main_process_id=$!
-            sleep 20
-            ps -eo pid,args | grep "node-$version-linux-amd64 --core" | grep -v grep | gawk '{print $1}' | xargs -L 1 cpulimit -l 50 -z -b -p
+            ./node-$version-linux-amd64
         fi
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         ./node-$version-darwin-arm64 &
